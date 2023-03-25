@@ -15,10 +15,7 @@ ABaseGeometryActor::ABaseGeometryActor()
 void ABaseGeometryActor::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Display, TEXT("Hello Unreal!"));
-	UE_LOG(LogTemp, Warning, TEXT("Hello Unreal!"));
-	UE_LOG(LogTemp, Error, TEXT("Hello Unreal!"));
-	
+	printTypes();
 }
 
 // Called every frame
@@ -27,4 +24,18 @@ void ABaseGeometryActor::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+void ABaseGeometryActor::printTypes()
+{
 
+	int WeaponsNum = 4;
+	int KillsNum = 7;
+	float Health = 34.345;
+	bool IsDead = false;
+	bool HasWeapon = true;
+
+	UE_LOG(LogTemp, Display, TEXT("Weapons num: %d, kills num: %i"), WeaponsNum, KillsNum);
+	UE_LOG(LogTemp, Display, TEXT("Health: %f"), Health);
+	UE_LOG(LogTemp, Display, TEXT("Health: %.2f"), Health);
+	UE_LOG(LogTemp, Display, TEXT("IsDead: %d"), IsDead);
+	UE_LOG(LogTemp, Display, TEXT("HasWeapon: %d"), static_cast<int>(HasWeapon));
+}
