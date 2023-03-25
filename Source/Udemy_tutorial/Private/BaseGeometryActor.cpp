@@ -2,6 +2,7 @@
 
 
 #include "BaseGeometryActor.h"
+#include "Engine/Engine.h"
 
 DEFINE_LOG_CATEGORY_STATIC(ConmiroLog, All, All)
 
@@ -18,20 +19,7 @@ void ABaseGeometryActor::BeginPlay()
 {
 	Super::BeginPlay();
 	//printTypes();
-	
-	FString Name = "Conmiro";
-	UE_LOG(ConmiroLog, Display, TEXT("Hello %s"), *Name);
-	
-	int WeaponsNum = 4;
-	float Health = 34.345;
-	bool IsDead = false;
-
-	FString WeaponsNumStr = "Weapons num = " + FString::FromInt(WeaponsNum);
-	FString HealthStr = "Health = " + FString::SanitizeFloat(Health);
-	FString IsDeadStr = "Is dead = " + FString(IsDead ? "true": "false");
-
-	FString Stat = FString::Printf(TEXT("\n == All Stat == \n %s \n%s \n%s "), *WeaponsNumStr, *HealthStr, *IsDeadStr);
-	UE_LOG(ConmiroLog, Warning, TEXT("%s"), *Stat);
+	printStringTypes();
 }
 
 // Called every frame
@@ -54,4 +42,24 @@ void ABaseGeometryActor::printTypes()
 	UE_LOG(LogTemp, Display, TEXT("Health: %.2f"), Health);
 	UE_LOG(LogTemp, Display, TEXT("IsDead: %d"), IsDead);
 	UE_LOG(LogTemp, Display, TEXT("HasWeapon: %d"), static_cast<int>(HasWeapon));
+}
+
+void ABaseGeometryActor::printStringTypes()
+{
+FString Name = "Conmiro";
+	UE_LOG(ConmiroLog, Display, TEXT("Hello %s"), *Name);
+	
+	int WeaponsNum = 4;
+	float Health = 34.345;
+	bool IsDead = false;
+
+	FString WeaponsNumStr = "Weapons num = " + FString::FromInt(WeaponsNum);
+	FString HealthStr = "Health = " + FString::SanitizeFloat(Health);
+	FString IsDeadStr = "Is dead = " + FString(IsDead ? "true": "false");
+
+	FString Stat = FString::Printf(TEXT("\n == All Stat == \n %s \n%s \n%s "), *WeaponsNumStr, *HealthStr, *IsDeadStr);
+	UE_LOG(ConmiroLog, Warning, TEXT("%s"), *Stat);
+
+	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, Name);
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, Stat, true, FVector2D(1.5f, 1.5f));
 }
