@@ -30,6 +30,7 @@ class AUdemy_tutorialCharacter : public ACharacter
 	class UInputAction* JumpAction;
 
 	/** Move Input Action */
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* MoveAction;
 
