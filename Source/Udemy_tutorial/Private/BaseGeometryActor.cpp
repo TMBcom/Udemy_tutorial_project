@@ -3,6 +3,8 @@
 
 #include "BaseGeometryActor.h"
 
+DEFINE_LOG_CATEGORY_STATIC(ConmiroLog, All, All)
+
 // Sets default values
 ABaseGeometryActor::ABaseGeometryActor()
 {
@@ -15,7 +17,21 @@ ABaseGeometryActor::ABaseGeometryActor()
 void ABaseGeometryActor::BeginPlay()
 {
 	Super::BeginPlay();
-	printTypes();
+	//printTypes();
+	
+	FString Name = "Conmiro";
+	UE_LOG(ConmiroLog, Display, TEXT("Hello %s"), *Name);
+	
+	int WeaponsNum = 4;
+	float Health = 34.345;
+	bool IsDead = false;
+
+	FString WeaponsNumStr = "Weapons num = " + FString::FromInt(WeaponsNum);
+	FString HealthStr = "Health = " + FString::SanitizeFloat(Health);
+	FString IsDeadStr = "Is dead = " + FString(IsDead ? "true": "false");
+
+	FString Stat = FString::Printf(TEXT("\n == All Stat == \n %s \n%s \n%s "), *WeaponsNumStr, *HealthStr, *IsDeadStr);
+	UE_LOG(ConmiroLog, Warning, TEXT("%s"), *Stat);
 }
 
 // Called every frame
