@@ -46,7 +46,7 @@ void ABaseGeometryActor::printTypes()
 
 void ABaseGeometryActor::printStringTypes()
 {
-FString Name = "Conmiro";
+	FString Name = "Conmiro";
 	UE_LOG(ConmiroLog, Display, TEXT("Hello %s"), *Name);
 	
 	int WeaponsNum = 4;
