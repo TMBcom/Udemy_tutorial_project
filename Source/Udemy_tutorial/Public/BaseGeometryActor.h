@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/StaticMeshComponent.h"
 #include "BaseGeometryActor.generated.h"
 
 UCLASS()
@@ -14,6 +15,9 @@ class UDEMY_TUTORIAL_API ABaseGeometryActor : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ABaseGeometryActor();
+
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* BaseMesh;
 
 protected:
 	// Called when the game starts or when spawned
