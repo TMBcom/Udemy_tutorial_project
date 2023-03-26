@@ -33,14 +33,15 @@ void ABaseGeometryActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	switch (MoveType)
+	switch (GeometryDataCon.MoveType)
 	{
 	case EMovementTypeConmiro::Sin:
 	{
 	//z = z0 + A * sin(freq * time);
 	FVector CurrentLocationConmiro = GetActorLocation();
 	float time = GetWorld()->GetTimeSeconds();
-	CurrentLocationConmiro.Z = InitlocationConmiro.Z + Amplitude * FMath::Sin(Frequency * time);
+	CurrentLocationConmiro.Z = InitlocationConmiro.Z + GeometryDataCon.Amplitude * 
+	FMath::Sin(GeometryDataCon.Frequency * time);
 	
 	SetActorLocation(CurrentLocationConmiro);
 	}

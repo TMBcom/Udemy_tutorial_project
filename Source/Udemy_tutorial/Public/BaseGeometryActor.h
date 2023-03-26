@@ -14,6 +14,22 @@ enum class EMovementTypeConmiro : uint8
 	Static
 };
 
+USTRUCT(BlueprintType)
+struct FGeometryDataConmiro
+{
+	GENERATED_USTRUCT_BODY()
+	//Movement
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float Amplitude = 50.0f;
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float Frequency = 2.0f;
+
+	//Дефолтное значение перемещения актера
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	EMovementTypeConmiro MoveType = EMovementTypeConmiro::Static;
+};
+
+
 UCLASS()
 class UDEMY_TUTORIAL_API ABaseGeometryActor : public AActor
 {
@@ -29,16 +45,9 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
-	//Movement
-	UPROPERTY(EditAnywhere, Category = "Movement")
-	float Amplitude = 50.0f;
-	UPROPERTY(EditAnywhere, Category = "Movement")
-	float Frequency = 2.0f;
 
-	//Дефолтное значение перемещения актера
-	UPROPERTY(EditAnywhere, Category = "Movement")
-	EMovementTypeConmiro MoveType = EMovementTypeConmiro::Static;
+	UPROPERTY(EditAnywhere, Category = "Geometry Data")
+	FGeometryDataConmiro GeometryDataCon;
 
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	int32 WeaponsNum = 4;
