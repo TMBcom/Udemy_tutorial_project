@@ -7,6 +7,13 @@
 #include "Components/StaticMeshComponent.h"
 #include "BaseGeometryActor.generated.h"
 
+UENUM(BlueprintType)
+enum class EMovementTypeConmiro : uint8
+{
+	Sin,
+	Static
+};
+
 UCLASS()
 class UDEMY_TUTORIAL_API ABaseGeometryActor : public AActor
 {
@@ -28,6 +35,10 @@ protected:
 	float Amplitude = 50.0f;
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float Frequency = 2.0f;
+
+	//Дефолтное значение перемещения актера
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	EMovementTypeConmiro MoveType = EMovementTypeConmiro::Static;
 
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	int32 WeaponsNum = 4;
@@ -52,7 +63,7 @@ private:
 	void printTypes();
 	void printStringTypes();
 	void printTransform();
-	
+
 //переменные
 private:
 	FVector InitlocationConmiro;
