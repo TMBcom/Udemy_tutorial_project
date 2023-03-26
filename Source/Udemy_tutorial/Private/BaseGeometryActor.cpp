@@ -21,19 +21,9 @@ ABaseGeometryActor::ABaseGeometryActor()
 void ABaseGeometryActor::BeginPlay()
 {
 	Super::BeginPlay();
-	FTransform TransformConmiro = GetActorTransform();
-	FVector LocationConmiro = TransformConmiro.GetLocation();
-	FRotator RotatorConmiro = TransformConmiro.Rotator();
-	FVector ScaleConmiro = TransformConmiro.GetScale3D();
+	InitlocationConmiro = GetActorLocation();
 
-	UE_LOG(ConmiroLog, Warning, TEXT("Actor name %s"), *GetName());
-	UE_LOG(ConmiroLog, Warning, TEXT("Actor transform %s"), *TransformConmiro.ToString());
-	UE_LOG(ConmiroLog, Warning, TEXT("Actor location %s" ), *LocationConmiro.ToString());
-	UE_LOG(ConmiroLog, Warning, TEXT("Actor rotation %s"),  *RotatorConmiro.ToString());
-	UE_LOG(ConmiroLog, Warning, TEXT("Actor scale %s"),     *ScaleConmiro.ToString());
-
-	UE_LOG(ConmiroLog, Error, TEXT("Actor another display transform %s"), 
-	*TransformConmiro.ToHumanReadableString());
+	printTransform();
 	//printTypes();
 	//printStringTypes();
 }
@@ -42,6 +32,12 @@ void ABaseGeometryActor::BeginPlay()
 void ABaseGeometryActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	//z = z0 + A * sin(freq * time);
+	FVector CurrentLocationConmiro = GetActorLocation();
+	
+	float time = GetWorld()->GetTimeSeconds();
+	CurrentLocationConmiro.Z = InitlocationConmiro.Z + Amplitude * FMath::Sin(Frequency * time);
+	SetActorLocation(CurrentLocationConmiro);
 
 }
 void ABaseGeometryActor::printTypes()
@@ -53,7 +49,6 @@ void ABaseGeometryActor::printTypes()
 	UE_LOG(ConmiroLog, Warning, TEXT("HasWeapon: %d"), static_cast<int>(HasWeapon));
 	
 }
-
 void ABaseGeometryActor::printStringTypes()
 {
 	FString Name = "Conmiro";
@@ -67,4 +62,19 @@ void ABaseGeometryActor::printStringTypes()
 
 	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, Name);
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, Stat, true, FVector2D(1.5f, 1.5f));
+}
+void ABaseGeometryActor::printTransform(){
+	FTransform TransformConmiro = GetActorTransform();
+	FVector LocationConmiro = TransformConmiro.GetLocation();
+	FRotator RotatorConmiro = TransformConmiro.Rotator();
+	FVector ScaleConmiro = TransformConmiro.GetScale3D();
+
+	UE_LOG(ConmiroLog, Warning, TEXT("Actor name %s"), *GetName());
+	UE_LOG(ConmiroLog, Warning, TEXT("Actor transform %s"), *TransformConmiro.ToString());
+	UE_LOG(ConmiroLog, Warning, TEXT("Actor location %s" ), *LocationConmiro.ToString());
+	UE_LOG(ConmiroLog, Warning, TEXT("Actor rotation %s"),  *RotatorConmiro.ToString());
+	UE_LOG(ConmiroLog, Warning, TEXT("Actor scale %s"),     *ScaleConmiro.ToString());
+
+	UE_LOG(ConmiroLog, Error, TEXT("Actor another display transform %s"), 
+	*TransformConmiro.ToHumanReadableString());
 }

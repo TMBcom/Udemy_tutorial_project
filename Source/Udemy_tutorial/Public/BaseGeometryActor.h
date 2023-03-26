@@ -23,6 +23,12 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
+	//Movement
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float Amplitude = 50.0f;
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float Frequency = 2.0f;
+
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	int32 WeaponsNum = 4;
 
@@ -37,12 +43,17 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "HasWeapon?")
 	bool HasWeapon = true;
-	
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+//Методы
 private:
 	void printTypes();
 	void printStringTypes();
+	void printTransform();
+	
+//переменные
+private:
+	FVector InitlocationConmiro;
 };
