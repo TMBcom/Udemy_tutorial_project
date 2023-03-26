@@ -11,17 +11,31 @@ ABaseGeometryActor::ABaseGeometryActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>("ConmiroMesh");
 	SetRootComponent(BaseMesh);
 
+	
 }
 
 // Called when the game starts or when spawned
 void ABaseGeometryActor::BeginPlay()
 {
 	Super::BeginPlay();
-	printTypes();
+	FTransform TransformConmiro = GetActorTransform();
+	FVector LocationConmiro = TransformConmiro.GetLocation();
+	FRotator RotatorConmiro = TransformConmiro.Rotator();
+	FVector ScaleConmiro = TransformConmiro.GetScale3D();
+
+	UE_LOG(ConmiroLog, Warning, TEXT("Actor name %s"), *GetName());
+	UE_LOG(ConmiroLog, Warning, TEXT("Actor transform %s"), *TransformConmiro.ToString());
+	UE_LOG(ConmiroLog, Warning, TEXT("Actor location %s" ), *LocationConmiro.ToString());
+	UE_LOG(ConmiroLog, Warning, TEXT("Actor rotation %s"),  *RotatorConmiro.ToString());
+	UE_LOG(ConmiroLog, Warning, TEXT("Actor scale %s"),     *ScaleConmiro.ToString());
+
+	UE_LOG(ConmiroLog, Error, TEXT("Actor another display transform %s"), 
+	*TransformConmiro.ToHumanReadableString());
+	//printTypes();
+	//printStringTypes();
 }
 
 // Called every frame
