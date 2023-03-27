@@ -47,7 +47,7 @@ void ABaseGeometryActor::Tick(float DeltaTime)
 	}
 	break;
 
-	case EMovementTypeConmiro::Static:break;
+	case EMovementTypeConmiro::Stati:break;
 	default:break;
 	}
 

@@ -11,7 +11,7 @@ UENUM(BlueprintType)
 enum class EMovementTypeConmiro : uint8
 {
 	Sin,
-	Static
+	Stati
 };
 
 USTRUCT(BlueprintType)
@@ -26,7 +26,7 @@ struct FGeometryDataConmiro
 
 	//Дефолтное значение перемещения актера
 	UPROPERTY(EditAnywhere, Category = "Movement")
-	EMovementTypeConmiro MoveType = EMovementTypeConmiro::Static;
+	EMovementTypeConmiro MoveType = EMovementTypeConmiro::Stati;
 };
 
 
