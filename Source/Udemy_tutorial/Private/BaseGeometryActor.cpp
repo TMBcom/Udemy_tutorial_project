@@ -22,7 +22,7 @@ void ABaseGeometryActor::BeginPlay()
 {
 	Super::BeginPlay();
 	InitlocationConmiro = GetActorLocation();
-
+	InitRotationConmiro = GetActorRotation();
 	printTransform();
 	//printTypes();
 	//printStringTypes();
@@ -39,15 +39,19 @@ void ABaseGeometryActor::Tick(float DeltaTime)
 	{
 	//z = z0 + A * sin(freq * time);
 	FVector CurrentLocationConmiro = GetActorLocation();
+	FRotator CurrentRotationConmiro = GetActorRotation();
 	float time = GetWorld()->GetTimeSeconds();
 	CurrentLocationConmiro.Z = InitlocationConmiro.Z + GeometryDataCon.Amplitude * 
 	FMath::Sin(GeometryDataCon.Frequency * time);
-	
+	CurrentRotationConmiro.Yaw = (InitRotationConmiro.Yaw +
+		GeometryDataCon.Rotate * time);
+
+	SetActorRotation(CurrentRotationConmiro);
 	SetActorLocation(CurrentLocationConmiro);
 	}
 	break;
 
-	case EMovementTypeConmiro::Stati:break;
+	case EMovementTypeConmiro::Static:break;
 	default:break;
 	}
 

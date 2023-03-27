@@ -11,7 +11,7 @@ UENUM(BlueprintType)
 enum class EMovementTypeConmiro : uint8
 {
 	Sin,
-	Stati
+	Static
 };
 
 USTRUCT(BlueprintType)
@@ -23,10 +23,12 @@ struct FGeometryDataConmiro
 	float Amplitude = 50.0f;
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float Frequency = 2.0f;
+	UPROPERTY(EditAnywhere, Category = "Movement")
+		float Rotate = 2.0f;
 
 	//Дефолтное значение перемещения актера
 	UPROPERTY(EditAnywhere, Category = "Movement")
-	EMovementTypeConmiro MoveType = EMovementTypeConmiro::Stati;
+	EMovementTypeConmiro MoveType = EMovementTypeConmiro::Static;
 };
 
 
@@ -76,4 +78,5 @@ private:
 //переменные
 private:
 	FVector InitlocationConmiro;
+	FRotator InitRotationConmiro;
 };
