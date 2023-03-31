@@ -18,17 +18,20 @@ USTRUCT(BlueprintType)
 struct FGeometryDataConmiro
 {
 	GENERATED_USTRUCT_BODY()
-	//Movement
+		//Movement
+		UPROPERTY(EditAnywhere, Category = "Movement")
+		float Amplitude = 50.0f;
 	UPROPERTY(EditAnywhere, Category = "Movement")
-	float Amplitude = 50.0f;
-	UPROPERTY(EditAnywhere, Category = "Movement")
-	float Frequency = 2.0f;
+		float Frequency = 2.0f;
 	UPROPERTY(EditAnywhere, Category = "Movement")
 		float Rotate = 2.0f;
 
 	//Дефолтное значение перемещения актера
 	UPROPERTY(EditAnywhere, Category = "Movement")
-	EMovementTypeConmiro MoveType = EMovementTypeConmiro::Static;
+		EMovementTypeConmiro MoveType = EMovementTypeConmiro::Static;
+
+	UPROPERTY(EditAnywhere, Category = "Design")
+		FLinearColor Color = FLinearColor::Black;
 };
 
 
@@ -36,46 +39,47 @@ UCLASS()
 class UDEMY_TUTORIAL_API ABaseGeometryActor : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ABaseGeometryActor();
 
 	UPROPERTY(VisibleAnywhere)
-	UStaticMeshComponent* BaseMesh;
+		UStaticMeshComponent* BaseMesh;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, Category = "Geometry Data")
-	FGeometryDataConmiro GeometryDataCon;
+		FGeometryDataConmiro GeometryDataCon;
 
 	UPROPERTY(EditAnywhere, Category = "Weapon")
-	int32 WeaponsNum = 4;
+		int32 WeaponsNum = 4;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Kills")
-	int32 KillsNum = 7;
+		int32 KillsNum = 7;
 
 	UPROPERTY(EditInstanceOnly, Category = "Health")
-	float Health = 34.345;
+		float Health = 34.345;
 
 	UPROPERTY(EditAnywhere, Category = "Dead")
-	bool IsDead = false;
+		bool IsDead = false;
 
 	UPROPERTY(VisibleAnywhere, Category = "HasWeapon?")
-	bool HasWeapon = true;
-public:	
+		bool HasWeapon = true;
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-//Методы
+	//Методы
 private:
 	void printTypes();
 	void printStringTypes();
 	void printTransform();
 
-//переменные
+	void SetColor(const FLinearColor& Color);
+	//переменные
 private:
 	FVector InitlocationConmiro;
 	FRotator InitRotationConmiro;
