@@ -32,6 +32,12 @@ struct FGeometryDataConmiro
 
 	UPROPERTY(EditAnywhere, Category = "Design")
 		FLinearColor Color = FLinearColor::Black;
+
+	UPROPERTY(EditAnywhere, Category = "Design")
+	float TimerConmiroRate = 3.0f; //частота срабатывания таймера
+
+	UPROPERTY(EditAnywhere, Category = "Design")
+	int32 MaxTimerCount = 10; //сколько сработает таймер
 };
 
 
@@ -79,8 +85,15 @@ private:
 	void printTransform();
 
 	void SetColor(const FLinearColor& Color);
+	void OnTimerFired();
+
+
 	//переменные
 private:
+
+	int32  TimerCount = 0;
+
 	FVector InitlocationConmiro;
 	FRotator InitRotationConmiro;
+	FTimerHandle TimerHandleConmiro;
 };

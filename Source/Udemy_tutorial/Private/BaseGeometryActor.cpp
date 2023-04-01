@@ -4,6 +4,7 @@
 #include "BaseGeometryActor.h"
 #include "Engine/Engine.h"
 #include <Materials/MaterialInstanceDynamic.h>
+#include <TimerManager.h>
 
 DEFINE_LOG_CATEGORY_STATIC(ConmiroLog, All, All)
 
@@ -25,6 +26,9 @@ void ABaseGeometryActor::BeginPlay()
 	InitlocationConmiro = GetActorLocation();
 	InitRotationConmiro = GetActorRotation();
 	SetColor(GeometryDataCon.Color);
+
+	GetWorldTimerManager().SetTimer(TimerHandleConmiro, this, 
+		&ABaseGeometryActor::OnTimerFired, GeometryDataCon.TimerConmiroRate, true);
 	//printTransform();
 	//printTypes();
 	//printStringTypes();
@@ -104,5 +108,17 @@ void ABaseGeometryActor::SetColor(const FLinearColor& Color)
 	UMaterialInstanceDynamic* DynMaterial = BaseMesh->CreateAndSetMaterialInstanceDynamic(0);
 	if (DynMaterial) {
 		DynMaterial->SetVectorParameterValue("Color", Color);
+	}
+}
+
+void ABaseGeometryActor::OnTimerFired()
+{
+	if (++TimerCount <= GeometryDataCon.MaxTimerCount) {
+		const FLinearColor NewColor = FLinearColor::MakeRandomColor();
+		SetColor(NewColor);
+	}
+	else
+	{
+		GetWorldTimerManager().ClearTimer(TimerHandleConmiro);
 	}
 }
