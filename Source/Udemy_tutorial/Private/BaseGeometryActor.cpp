@@ -39,28 +39,8 @@ void ABaseGeometryActor::BeginPlay()
 void ABaseGeometryActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	switch (GeometryDataCon.MoveType)
-	{
-	case EMovementTypeConmiro::Sin:
-	{
-	//z = z0 + A * sin(freq * time);
-	FVector CurrentLocationConmiro = GetActorLocation();
-	FRotator CurrentRotationConmiro = GetActorRotation();
-	float time = GetWorld()->GetTimeSeconds();
-	CurrentLocationConmiro.Z = InitlocationConmiro.Z + GeometryDataCon.Amplitude * 
-	FMath::Sin(GeometryDataCon.Frequency * time);
-	CurrentRotationConmiro.Yaw = (InitRotationConmiro.Yaw +
-		GeometryDataCon.Rotate * time);
-
-	SetActorRotation(CurrentRotationConmiro);
-	SetActorLocation(CurrentLocationConmiro);
-	}
-	break;
-
-	case EMovementTypeConmiro::Static:break;
-	default:break;
-	}
+	
+	HandleMovement();
 
 
 }
@@ -105,6 +85,7 @@ void ABaseGeometryActor::printTransform(){
 
 void ABaseGeometryActor::SetColor(const FLinearColor& Color)
 {
+	if (!BaseMesh) return;
 	UMaterialInstanceDynamic* DynMaterial = BaseMesh->CreateAndSetMaterialInstanceDynamic(0);
 	if (DynMaterial) {
 		DynMaterial->SetVectorParameterValue("Color", Color);
@@ -120,5 +101,33 @@ void ABaseGeometryActor::OnTimerFired()
 	else
 	{
 		GetWorldTimerManager().ClearTimer(TimerHandleConmiro);
+	}
+}
+
+void ABaseGeometryActor::HandleMovement()
+{
+	switch (GeometryDataCon.MoveType)
+	{
+	case EMovementTypeConmiro::Sin:
+	{
+		//z = z0 + A * sin(freq * time);
+		FVector CurrentLocationConmiro = GetActorLocation();
+		FRotator CurrentRotationConmiro = GetActorRotation();
+		if (GetWorld())
+		{
+			float time = GetWorld()->GetTimeSeconds();
+			CurrentLocationConmiro.Z = InitlocationConmiro.Z + GeometryDataCon.Amplitude *
+				FMath::Sin(GeometryDataCon.Frequency * time);
+			CurrentRotationConmiro.Yaw = (InitRotationConmiro.Yaw +
+				GeometryDataCon.Rotate * time);
+
+			SetActorRotation(CurrentRotationConmiro);
+			SetActorLocation(CurrentLocationConmiro);
+		}
+	}
+	break;
+
+	case EMovementTypeConmiro::Static:break;
+	default:break;
 	}
 }

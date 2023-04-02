@@ -38,6 +38,7 @@ struct FGeometryDataConmiro
 
 	UPROPERTY(EditAnywhere, Category = "Design")
 	int32 MaxTimerCount = 10; //сколько сработает таймер
+
 };
 
 
@@ -52,6 +53,10 @@ public:
 
 	UPROPERTY(VisibleAnywhere)
 		UStaticMeshComponent* BaseMesh;
+	
+	void SetGeometryData(const FGeometryDataConmiro& Data) {
+		GeometryDataCon = Data;
+	}
 
 protected:
 	// Called when the game starts or when spawned
@@ -86,7 +91,7 @@ private:
 
 	void SetColor(const FLinearColor& Color);
 	void OnTimerFired();
-
+	void HandleMovement();
 
 	//переменные
 private:
