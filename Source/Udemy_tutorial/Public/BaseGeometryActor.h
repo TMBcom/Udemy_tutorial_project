@@ -7,6 +7,11 @@
 #include "Components/StaticMeshComponent.h"
 #include "BaseGeometryActor.generated.h"
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnColorChanged, const FLinearColor&,
+	Color, const FString&, Name);
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnTimerFinished, AActor*);
+
 UENUM(BlueprintType)
 enum class EMovementTypeConmiro : uint8
 {
@@ -19,18 +24,18 @@ struct FGeometryDataConmiro
 {
 	GENERATED_USTRUCT_BODY()
 		//Movement
-		UPROPERTY(EditAnywhere, Category = "Movement")
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 		float Amplitude = 50.0f;
-	UPROPERTY(EditAnywhere, Category = "Movement")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 		float Frequency = 2.0f;
-	UPROPERTY(EditAnywhere, Category = "Movement")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 		float Rotate = 2.0f;
 
 	//Дефолтное значение перемещения актера
-	UPROPERTY(EditAnywhere, Category = "Movement")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 		EMovementTypeConmiro MoveType = EMovementTypeConmiro::Static;
 
-	UPROPERTY(EditAnywhere, Category = "Design")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Design")
 		FLinearColor Color = FLinearColor::Black;
 
 	UPROPERTY(EditAnywhere, Category = "Design")
@@ -54,15 +59,20 @@ public:
 	UPROPERTY(VisibleAnywhere)
 		UStaticMeshComponent* BaseMesh;
 	
-	void SetGeometryData(const FGeometryDataConmiro& Data) {
-		GeometryDataCon = Data;
-	}
+	void SetGeometryData(const FGeometryDataConmiro& Data) {GeometryDataCon = Data;}
 
+	UFUNCTION(BlueprintCallable)
+	FGeometryDataConmiro GetGeometryData() const { return GeometryDataCon; }
+
+	UPROPERTY(BlueprintAssignable)
+	FOnColorChanged OnColorChanged;
+
+	FOnTimerFinished OnTimerFinished;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, Category = "Geometry Data")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Geometry Data")
 		FGeometryDataConmiro GeometryDataCon;
 
 	UPROPERTY(EditAnywhere, Category = "Weapon")
@@ -79,6 +89,7 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "HasWeapon?")
 		bool HasWeapon = true;
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

@@ -97,10 +97,12 @@ void ABaseGeometryActor::OnTimerFired()
 	if (++TimerCount <= GeometryDataCon.MaxTimerCount) {
 		const FLinearColor NewColor = FLinearColor::MakeRandomColor();
 		SetColor(NewColor);
+		OnColorChanged.Broadcast(NewColor, GetName());
 	}
 	else
 	{
 		GetWorldTimerManager().ClearTimer(TimerHandleConmiro);
+		OnTimerFinished.Broadcast(this);
 	}
 }
 
