@@ -63,4 +63,10 @@ private:
 	void DoActorSpawn1();
 	void DoActorSpawn2();
 	void DoActorSpawn3();
+
+	//заметки!
+	UFUNCTION()
+	void onColorChanged(const FLinearColor& Color, const FString& name);
+	
+	void OnTimerFinished(AActor* Actor);
 };
