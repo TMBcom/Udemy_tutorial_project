@@ -3,6 +3,7 @@
 #include "Udemy_tutorialGameMode.h"
 #include "Udemy_tutorialCharacter.h"
 #include "UObject/ConstructorHelpers.h"
+#include "SandboxPown.h"
 
 AUdemy_tutorialGameMode::AUdemy_tutorialGameMode()
 {
@@ -10,6 +11,7 @@ AUdemy_tutorialGameMode::AUdemy_tutorialGameMode()
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/ThirdPerson/Blueprints/BP_ThirdPersonCharacter"));
 	if (PlayerPawnBPClass.Class != NULL)
 	{
-		DefaultPawnClass = PlayerPawnBPClass.Class;
+		//записать в заметки
+		DefaultPawnClass = ASandboxPown::StaticClass();
 	}
 }
