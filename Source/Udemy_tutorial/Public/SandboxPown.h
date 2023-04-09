@@ -18,7 +18,7 @@ public:
 	UPROPERTY(VisibleAnywhere)
 		USceneComponent* SceneComponent;
 	UPROPERTY(EditAnywhere)
-		float Velocity = 300.0f;
+		float Velocity = 300.0f
 
 protected:
 	// Called when the game starts or when spawned
